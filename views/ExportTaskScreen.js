@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -39,13 +39,12 @@ const ExportTaskScreen = () => {
 
     const handleExport = async (exportTasks, fileName) => {
         try {
-            // TODO: Fix why didnt export the file
             const fileUri = FileSystem.cacheDirectory + fileName;
-            await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(exportTasks));
+            await FileSystem.writeAsStringAsync(fileUri, exportTasks);
             await Sharing.shareAsync(fileUri, {
-                mimeType: 'application/json',
-                dialogTitle: 'Export your tasks',
-                UTI: 'public.json'
+                mimeType: 'text/plain',
+                UTI: 'public.plain-text',
+                dialogTitle: `Export your tasks`,
             });
         } catch (error) {
             console.log(error);
@@ -69,15 +68,14 @@ const ExportTaskScreen = () => {
                 </View>
             </View>
             <View style={styles.separator} />
-            <Text>Export your tasks</Text>
             <View style={styles.exportButtonView}>
-                <Button style={styles.exportButton} onPress={() => handleExport(tasks, 'allTasks.json')}>
+                <Button style={styles.exportButton} onPress={() => handleExport(JSON.stringify(tasks), 'allTasks.txt')}>
                     Export all tasks
                 </Button>
-                <Button style={styles.exportButton} onPress={() => handleExport(getCompletedTasks(), 'completTasks.json')}>
+                <Button style={styles.exportButton} onPress={() => handleExport(JSON.stringify(getCompletedTasks()), 'completTasks.txt')}>
                     Export completed tasks
                 </Button>
-                <Button style={styles.exportButton} onPress={() => handleExport(getPendingTasks(), 'pendingTask.json')}>
+                <Button style={styles.exportButton} onPress={() => handleExport(JSON.stringify(getPendingTasks()), 'pendingTask.txt')}>
                     Export pending tasks
                 </Button>
             </View>
