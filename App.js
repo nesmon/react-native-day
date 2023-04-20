@@ -3,16 +3,24 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './views/HomeScreen';
 import WriteFileScreen from './views/WriteFileScreen';
+import EditTaskScreen from './views/EditTaskScreen';
 
 const Tab = createBottomTabNavigator();
 
 function App() {
   return (
+    //   <NavigationContainer>
+    //     <Tab.Navigator>
+    //       <Tab.Screen name="Home" component={HomeScreen} />
+    //       <Tab.Screen name="Edit Task" component={EditTaskScreen} />
+    //       <Tab.Screen name="Write File" component={WriteFileScreen} />
+    //     </Tab.Navigator>
+    //   </NavigationContainer>
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Write File" component={WriteFileScreen} />
-      </Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Edit Task" component={EditTaskScreen} />
+        </Tab.Navigator>
     </NavigationContainer>
   );
 }
