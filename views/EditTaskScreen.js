@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { TextInput, Button, List, IconButton } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { nanoid } from 'nanoid/non-secure';
+import { nanoid } from 'nanoid';
 
 const EditTaskScreen = () => {
     const [title, setTitle] = useState('');
